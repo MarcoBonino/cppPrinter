@@ -25,5 +25,21 @@ int main(int argc, const char * argv[])
     std::deque<int> dq(fwList.begin(), fwList.end());
     std::cout << "dq = " << dq << std::endl;
 
+    std::map<std::string, int> myMap;
+    myMap["key_1"] = 1;
+    myMap["key_2"] = 10;
+    myMap["key_3"] = 20;
+    myMap["key_4"] = 30;
+    std::cout << "myMap = " << myMap << std::endl;
+
+    std::multimap<std::string, int> myMultiMap {{"key_1", 1}, {"key_2", 10}, {"key_2", 20}, {"key_2", 30}};
+    std::cout << "myMultiMap = " << myMultiMap << std::endl;
+
+    std::unordered_map<std::string, int> myUnorderedMap(myMap.begin(), myMap.end());
+    std::cout << "myUnorderedMap = " << myUnorderedMap << std::endl;
+
+    std::unordered_multimap<std::string, int> myUnorderedMultiMap(myMultiMap.begin(), myMultiMap.end());
+    std::cout << "myUnorderedMultiMap = " << myUnorderedMultiMap << std::endl;
+
     return 0;
 }

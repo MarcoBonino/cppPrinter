@@ -6,6 +6,8 @@
 #include <forward_list>
 #include <iostream>
 #include <list>
+#include <map>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -67,4 +69,31 @@ template <typename T1, typename T2>
 std::ostream& operator<<(std::ostream& os, std::pair<T1, T2> p)
 {
     return os << "{" << p.first << ", " << p.second << "}";
+}
+
+template<typename T>
+concept isMap = is_specialization<T, std::map>;
+
+template<typename T>
+concept isMultiMap = is_specialization<T, std::multimap>;
+
+template<typename T>
+concept isUnorderedMap = is_specialization<T, std::unordered_map>;
+
+template<typename T>
+concept isUnorderedMultiMap = is_specialization<T, std::unordered_multimap>;
+
+template <typename T>
+requires isMap<T> or isMultiMap<T> or isUnorderedMap<T> or isUnorderedMultiMap<T>
+std::ostream& operator<<(std::ostream& os, T map)
+{
+    os << "{";
+    if (!map.empty())
+    {
+        auto it = map.begin();
+        os << it->first << ": " << it->second;
+        for (++it; it != map.end(); ++it)
+            os << ", " << it->first << ": " << it->second;
+    }
+    return os << "}";
 }
